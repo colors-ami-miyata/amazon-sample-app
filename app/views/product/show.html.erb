@@ -1,0 +1,53 @@
+<% if user_signed_in? %>
+    <h1> ログインしています　</h1>
+    お名前：<%= current_user.user_name %>
+    年齢：<%= current_user.age %>    
+
+        <p>商品名</p>
+        <%=  @product.product_name %>
+    
+        <p>商品紹介</p>
+        <%= @product.body %>
+
+        <p>在庫数</p>
+        <%= @product.stock %>
+
+        <p>金額</p>
+        　¥ <%= @product.money %>
+
+<% cart = 0 %>
+<% @user_product.each do |u| %>
+    <% if u.user_id == current_user.id  && u.product_id == @product.id %>
+       <% cart = cart + u.lot %> 
+    <% end %>      
+<% end %>
+
+<% if cart > 0 then %>
+ <%= link_to "カートから出す",product_user_product_path(product_id: params[:id]), method: :delete %>
+　
+ <% else %>
+ <%= link_to "カートに入れる",product_user_product_index_path(product_id: params[:id]), method: :post %>
+　
+<% end %>
+
+<% else %>
+    <h1> ログインしていません</h1>
+
+    <p>商品名</p>
+        <%=  @product.product_name %>
+    
+        <p>商品紹介</p>
+        <%= @product.body %>
+
+        <p>在庫数</p>
+        <%= @product.stock %>
+
+        <p>金額</p>
+        　¥ <%= @product.money %>
+    
+<% end %>
+
+
+<div>
+<%= link_to "商品一覧",product_index_path, method: :get %>
+</div>    

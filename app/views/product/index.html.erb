@@ -1,0 +1,21 @@
+<% if user_signed_in? %>
+    <h1> ログインしています　</h1>
+    <div> お名前：<%= current_user.user_name %>
+    年齢：<%= current_user.age %>
+    </div>
+    <%= link_to "ユーザー情報を編集する",edit_user_registration_path, method: :get  %>   
+    <%= link_to "新規出品",new_product_path %>
+
+<% else %>
+    <h1> ログインしていません</h1>
+<% end %>
+
+<% @product.each do |t| %>
+    <div>
+    　商品名:<%= link_to "#{t.product_name}",product_path(id: t.id) %>
+    </div>
+    <div>
+      金額:¥ <%= t.money %>　
+    </div>
+<% end %>
+

@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+    <h1> ログインしています　</h1>
+    お名前：<%= current_user.user_name %>
+    年齢：<%= current_user.age %>
+    <%= form_for(@product, url: product_index_path, method: :post) do |f| %>
+
+    
+        <p>商品名</p>
+        <%= f.text_field :product_name %>
+    
+        <p>商品紹介</p>
+        <%= f.text_area :body %>
+
+        <p>在庫数</p>
+        <%= f.number_field :stock %>
+
+        <p>金額</p>
+        　¥ <%= f.number_field :money %>
+
+
+        <%= f.submit '商品を出品する' %>
+        <% end %>
+        <div>
+        <%= link_to "商品一覧",product_index_path, method: :get %>
+        </div>
+<% else %>
+    <h1> ログインしていません</h1>
+<% end %>
+
+
+
